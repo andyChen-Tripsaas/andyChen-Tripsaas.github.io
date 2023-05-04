@@ -14,7 +14,7 @@
 <meta property="og:description" content="原始型別 連結 number string boolean undefined:  未定義的空值 null: 代表空值 void: 通常用在函式型別沒有回傳的狀態 symbol: 想成是一個獨一無二的東西1Symbol(&quot;Andy&quot;) &#x3D;&#x3D;&#x3D; Symbol(&quot;Andy&quot;) &#x2F;&#x2F; false  上述的七個原始型別各自獨立，也就是誰也不屬於誰。 P.S: Sym">
 <meta property="og:locale">
 <meta property="article:published_time" content="2023-05-03T15:00:04.000Z">
-<meta property="article:modified_time" content="2023-05-04T12:41:29.853Z">
+<meta property="article:modified_time" content="2023-05-04T13:17:58.652Z">
 <meta property="article:author" content="Andy Chen">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary">
@@ -107,7 +107,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">1.</span> <span class="toc-text">原始型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">物件型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">3.</span> <span class="toc-text">明文型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript%E7%8D%A8%E6%9C%89%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">4.</span> <span class="toc-text">TypeScript獨有型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%9E%8B%E5%88%A5"><span class="toc-number">5.</span> <span class="toc-text">特殊型別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other"><span class="toc-number">6.</span> <span class="toc-text">Other</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5"><span class="toc-number">1.</span> <span class="toc-text">原始型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5"><span class="toc-number">2.</span> <span class="toc-text">物件型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5"><span class="toc-number">3.</span> <span class="toc-text">明文型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript%E7%8D%A8%E6%9C%89%E5%9E%8B%E5%88%A5"><span class="toc-number">4.</span> <span class="toc-text">TypeScript獨有型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%9E%8B%E5%88%A5"><span class="toc-number">5.</span> <span class="toc-text">特殊型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other"><span class="toc-number">6.</span> <span class="toc-text">Other</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -133,6 +133,8 @@
       
         <time datetime="2023-05-03T15:00:04.000Z" class="dt-published" itemprop="datePublished">2023-05-03</time>
         
+        (Updated: <time datetime="2023-05-04T13:17:58.652Z" class="dt-updated" itemprop="dateModified">2023-05-04</time>)
+        
       
     </div>
 
@@ -151,7 +153,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h2 id="原始型別-連結"><a href="#原始型別-連結" class="headerlink" title="原始型別 連結"></a>原始型別 <a href="../origints">連結</a></h2><ul>
+    <h2 id="原始型別"><a href="#原始型別" class="headerlink" title="原始型別 "></a>原始型別 <a href="/2023/05/03/ts-origin/" title="原始型別">連結</a></h2><ul>
 <li>number</li>
 <li>string</li>
 <li>boolean</li>
@@ -162,17 +164,16 @@
 </ul>
 <p>上述的七個原始型別<b>各自獨立</b>，也就是<b>誰也不屬於誰</b>。</p>
 <p>P.S: <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol</a></p>
-<h2 id="物件型別-連結"><a href="#物件型別-連結" class="headerlink" title="物件型別 連結"></a>物件型別 <a href="../objectts">連結</a></h2><ul>
-<li>JSON物件:</li>
+<h2 id="物件型別"><a href="#物件型別" class="headerlink" title="物件型別 "></a>物件型別 <a href="/2023/05/03/ts-object/" title="物件型別">連結</a></h2><ul>
 <li>Function</li>
 <li>Array</li>
 <li>Instance (由 Class New出來的)</li>
 </ul>
-<h2 id="明文型別-連結"><a href="#明文型別-連結" class="headerlink" title="明文型別 連結"></a>明文型別 <a href="../objectts">連結</a></h2><h2 id="TypeScript獨有型別-連結"><a href="#TypeScript獨有型別-連結" class="headerlink" title="TypeScript獨有型別 連結"></a>TypeScript獨有型別 <a href="../onlyts">連結</a></h2><ul>
+<h2 id="明文型別"><a href="#明文型別" class="headerlink" title="明文型別 "></a>明文型別 <a href="/2023/05/03/ts-object/" title="物件型別">連結</a></h2><h2 id="TypeScript獨有型別"><a href="#TypeScript獨有型別" class="headerlink" title="TypeScript獨有型別 "></a>TypeScript獨有型別 <a href="/2023/05/03/ts-only/" title="TypeScript獨有型別">連結</a></h2><ul>
 <li>Enum</li>
 <li>Tuple</li>
 </ul>
-<h2 id="特殊型別"><a href="#特殊型別" class="headerlink" title="特殊型別"></a>特殊型別</h2><ul>
+<h2 id="特殊型別"><a href="#特殊型別" class="headerlink" title="特殊型別 "></a>特殊型別 <a href="/2023/05/04/ts-special/" title="TypeScript特殊型別">連結</a></h2><ul>
 <li>any</li>
 <li>never</li>
 <li>unknown</li>
@@ -201,7 +202,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">1.</span> <span class="toc-text">原始型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">物件型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">3.</span> <span class="toc-text">明文型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript%E7%8D%A8%E6%9C%89%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">4.</span> <span class="toc-text">TypeScript獨有型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%9E%8B%E5%88%A5"><span class="toc-number">5.</span> <span class="toc-text">特殊型別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other"><span class="toc-number">6.</span> <span class="toc-text">Other</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5"><span class="toc-number">1.</span> <span class="toc-text">原始型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5"><span class="toc-number">2.</span> <span class="toc-text">物件型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5"><span class="toc-number">3.</span> <span class="toc-text">明文型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript%E7%8D%A8%E6%9C%89%E5%9E%8B%E5%88%A5"><span class="toc-number">4.</span> <span class="toc-text">TypeScript獨有型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%9E%8B%E5%88%A5"><span class="toc-number">5.</span> <span class="toc-text">特殊型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other"><span class="toc-number">6.</span> <span class="toc-text">Other</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
