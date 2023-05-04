@@ -5,7 +5,7 @@ tags:
   - TypeScript
 ---
 
-## 原始型別 [連結](../origints)
+## 原始型別 {% post_link ts-origin '連結' %}
 - number
 - string
 - boolean
@@ -21,19 +21,18 @@ Symbol("Andy") === Symbol("Andy") // false
 
 P.S: [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
 
-## 物件型別 [連結](../objectts)
-- JSON物件:
+## 物件型別 {% post_link ts-object '連結' %}
 - Function
 - Array
 - Instance (由 Class New出來的)
 
-## 明文型別 [連結](../objectts)
+## 明文型別 {% post_link ts-object '連結' %}
 
-## TypeScript獨有型別 [連結](../onlyts)
+## TypeScript獨有型別 {% post_link ts-only '連結' %}
 - Enum
 - Tuple
 
-## 特殊型別
+## 特殊型別 {% post_link ts-special '連結' %}
 - any
 - never
 - unknown
