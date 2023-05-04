@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="元組(Tuple)有固定個數，且固定型別順序的組合。 先來看元組的範例: 1234const locations &#x3D; [	[116, &amp;#x27;文山區&amp;#x27;],	[105, &amp;#x27;松山區&amp;#x27;]]  以上面的code來說，是一個二維陣列，如果透過型別推論的方法來推論，我們會發現推論出來的結果 1const locations: (string | number)[][]  由此">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript獨有型別">
+<meta property="og:url" content="http://example.com/2023/05/03/ts-only/index.html">
+<meta property="og:site_name" content="Andy Blog">
+<meta property="og:description" content="元組(Tuple)有固定個數，且固定型別順序的組合。 先來看元組的範例: 1234const locations &#x3D; [	[116, &amp;#x27;文山區&amp;#x27;],	[105, &amp;#x27;松山區&amp;#x27;]]  以上面的code來說，是一個二維陣列，如果透過型別推論的方法來推論，我們會發現推論出來的結果 1const locations: (string | number)[][]  由此">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-05-03T15:10:18.000Z">
+<meta property="article:modified_time" content="2023-05-04T12:41:04.237Z">
+<meta property="article:author" content="Andy Chen">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>TypeScript獨有型別</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/04/ts-special/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/03/ts-object/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/03/ts-only/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/03/ts-only/&text=TypeScript獨有型別"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/03/ts-only/&is_video=false&description=TypeScript獨有型別"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript獨有型別&body=Check out this article: http://example.com/2023/05/03/ts-only/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/03/ts-only/&name=TypeScript獨有型別&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/03/ts-only/&t=TypeScript獨有型別"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%B5%84-Tuple"><span class="toc-number">1.</span> <span class="toc-text">元組(Tuple)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%88%89-enum"><span class="toc-number">2.</span> <span class="toc-text">列舉(enum)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%88%89%E7%9A%84%E5%80%BC"><span class="toc-number">2.1.</span> <span class="toc-text">列舉的值</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        TypeScript獨有型別
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Andy Chen</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-03T15:10:18.000Z" class="dt-published" itemprop="datePublished">2023-05-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/TypeScript/" rel="tag">TypeScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="元組-Tuple"><a href="#元組-Tuple" class="headerlink" title="元組(Tuple)"></a>元組(Tuple)</h2><p>有固定個數，且固定型別順序的組合。</p>
+<p>先來看元組的範例:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> locations = [</span><br><span class="line">	[<span class="number">116</span>, <span class="string">&#x27;文山區&#x27;</span>],</span><br><span class="line">	[<span class="number">105</span>, <span class="string">&#x27;松山區&#x27;</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>以上面的code來說，是一個二維陣列，如果透過型別推論的方法來推論，我們會發現推論出來的結果</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">locations</span>: (<span class="built_in">string</span> | <span class="built_in">number</span>)[][]</span><br></pre></td></tr></table></figure>
+
+<p>由此可知，如果是要使用元組的狀況，我們需要主動進行註記。</p>
+<p>元組註記方式與我們先前說過的array不同，元組是透過<code>中括弧</code>來放置元素型別。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// array</span></span><br><span class="line"><span class="comment">// 這是指array裡面可以是number or string type</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">arr</span>: (<span class="built_in">number</span> | <span class="built_in">string</span>)[] = [<span class="string">&#x27;1&#x27;</span>, <span class="number">2</span>, <span class="string">&#x27;3&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// tuple</span></span><br><span class="line"><span class="keyword">const</span> tup = [<span class="built_in">number</span>, <span class="built_in">string</span>][] = [[<span class="number">116</span>, <span class="string">&#x27;文山區&#x27;</span>], [<span class="number">105</span>, <span class="string">&#x27;松山區&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>元組一般來說使用上較少，比較常用到的地方可能會類似讀取csv or excel資料時可以用到，或是在左標得系統上可以用到。</p>
+<p>不過一般來說我自己會建議使用物件的型別來去註記型別，畢竟在元組那，單看資料有時候是無法理解其順序的。</p>
+<p>P.S. 座標系統</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Coordinate</span> = [<span class="built_in">number</span>, <span class="built_in">number</span>] <span class="comment">// 緯度, 經度</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="列舉-enum"><a href="#列舉-enum" class="headerlink" title="列舉(enum)"></a>列舉(enum)</h2><p>列舉是將性質相同的元素，透過物件Key的方式來聚集。</p>
+<p>而在宣告enum的同時，其實也就是在做型別化名(type x &#x3D; xxx)</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不透過enum的方式</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Colors</span> = &#123;</span><br><span class="line">	<span class="title class_">Blue</span>: <span class="string">&#x27;Blue&#x27;</span>,</span><br><span class="line">	<span class="title class_">Red</span>: <span class="string">&#x27;Red&#x27;</span>,</span><br><span class="line">	<span class="title class_">Green</span>: <span class="string">&#x27;Green&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// enum</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123; <span class="title class_">Blue</span>, <span class="title class_">Red</span>, <span class="title class_">Green</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>enum的註記如果是要用在變數上，一般來說我是不會註記，我們可以同下面的code來看。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> color1 = <span class="title class_">Colors</span>.<span class="property">Blue</span>; <span class="comment">// 推論出let color1 = Colors.Blue;</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">color2</span>: <span class="title class_">Colors</span> = <span class="title class_">Colors</span>.<span class="property">Red</span>; <span class="comment">// let color2: Colors</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">color3</span>: <span class="title class_">Colors</span>.<span class="property">Green</span> = <span class="title class_">Colors</span>.<span class="property">Green</span>; <span class="comment">// let color3: Colors.Green (這不就是明文型別)</span></span><br><span class="line"><span class="keyword">const</span> color4 = <span class="title class_">Colors</span>.<span class="property">Green</span>;</span><br></pre></td></tr></table></figure>
+
+<p>基本上都可以直接推論出是哪個enum，除非你是要把這個enum用在某個func的參數，那就一定要註記了。</p>
+<h3 id="列舉的值"><a href="#列舉的值" class="headerlink" title="列舉的值"></a>列舉的值</h3><p>前面我們都是在說enum的key或是如何宣告，這邊說明enum的value，可以想像就是前面不透過enum object的key。</p>
+<p>在TS內，enum的預設值是從0開始遞增的數字，也就是說如果我們直接console.log enum的值</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Colors</span>.<span class="property">Blue</span>) <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Colors</span>.<span class="property">Red</span>) <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Colors</span>.<span class="property">Green</span>) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>但當然enum的值是可以更改的</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">	<span class="title class_">Blue</span> = <span class="number">1</span>, <span class="comment">// 1</span></span><br><span class="line">	<span class="title class_">Red</span> = <span class="number">2</span>, <span class="comment">// 2</span></span><br><span class="line">	<span class="title class_">Green</span> = <span class="number">3</span> <span class="comment">// 3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">	<span class="title class_">Blue</span> = <span class="number">1</span>, <span class="comment">// 1</span></span><br><span class="line">	<span class="title class_">Red</span>, <span class="comment">// 2 (Blue的1 + 1)</span></span><br><span class="line">	<span class="title class_">Green</span> <span class="comment">// 3 (Red的2 + 1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假使我們今天希望跟前面講到的不透過enum的object，key是string，那就需要自行更改值</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">	<span class="title class_">Blue</span> = <span class="string">&#x27;Blue&#x27;</span>, </span><br><span class="line">	<span class="title class_">Red</span> = <span class="string">&#x27;Red&#x27;</span>, <span class="comment">// 我們前面的code有提到是根據前面的元素在去做動作，前面是字串，後面的要自行手動註記</span></span><br><span class="line">	<span class="title class_">Green</span> = <span class="string">&#x27;Green&#x27;</span> <span class="comment">// 同上</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 這樣是OK的</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">	<span class="title class_">Blue</span>, <span class="comment">// 0</span></span><br><span class="line">	<span class="title class_">Red</span>, <span class="comment">// 1</span></span><br><span class="line">	<span class="title class_">Green</span> = <span class="string">&#x27;Green&#x27;</span> <span class="comment">// 我不透過上面的元素再動作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外enum的key只能是<code>string</code>或是<code>number</code>，以下是錯的</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">	<span class="title class_">Blue</span> = <span class="literal">true</span>, <span class="comment">// Type &#x27;boolean&#x27; is not assignable to type &#x27;number&#x27; as required for computed enum member values.</span></span><br><span class="line">	<span class="title class_">Red</span> = <span class="literal">undefined</span>, <span class="comment">// Type &#x27;undefined&#x27; is not assignable to type &#x27;number&#x27; as required for computed enum member values.</span></span><br><span class="line">	<span class="title class_">Green</span> = &#123; <span class="attr">abc</span>: <span class="number">123</span> &#125; <span class="comment">// Type &#x27;&#123; abc: number; &#125;&#x27; is not assignable to type &#x27;number&#x27; as required for computed enum member values</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>P.S. enum不會幫你檢查值有沒有重複 or 不合理的地方，所以在定義的時候不要value定義相同來搞自己</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">	<span class="title class_">Blue</span> = <span class="number">0</span>,</span><br><span class="line">	<span class="title class_">Red</span> = <span class="number">0</span>,</span><br><span class="line">	<span class="title class_">Green</span> = <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Colors</span>.<span class="property">Blue</span> === <span class="title class_">Colors</span>.<span class="property">Red</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>P.S.2</p>
+<ol>
+<li>若列舉的值為預設的數字值，我們可以逆著推回來值的Key。這是因為TypeScript在編譯TS的code時，會創建所謂的反向映射。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">    <span class="title class_">Blue</span>,</span><br><span class="line">    <span class="title class_">Red</span>,</span><br><span class="line">    <span class="title class_">Green</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Colors</span>[<span class="number">0</span>] === <span class="string">&#x27;Blue&#x27;</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+編譯結果<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Colors</span>;</span><br><span class="line">(<span class="keyword">function</span> (<span class="params">Colors</span>) &#123;</span><br><span class="line">    <span class="title class_">Colors</span>[<span class="string">&quot;Blue&quot;</span>] = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">    <span class="title class_">Colors</span>[<span class="title class_">Colors</span>[<span class="string">&quot;Red&quot;</span>] = <span class="number">237</span>] = <span class="string">&quot;Red&quot;</span>;</span><br><span class="line">    <span class="title class_">Colors</span>[<span class="title class_">Colors</span>[<span class="string">&quot;Green&quot;</span>] = <span class="number">239</span>] = <span class="string">&quot;Green&quot;</span>;</span><br><span class="line">&#125;)(<span class="title class_">Colors</span> || (<span class="title class_">Colors</span> = &#123;&#125;));</span><br></pre></td></tr></table></figure></li>
+<li>我們一般在用enum的功能時，根本不需要反向映射的功能，這是我們可以把我們enum的code加個<code>const</code><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">enum</span> <span class="title class_">Colors</span> &#123;</span><br><span class="line">    <span class="title class_">Blue</span>,</span><br><span class="line">    <span class="title class_">Red</span>,</span><br><span class="line">    <span class="title class_">Green</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+這時TS就不會在把enum創建反向映射，能減少code的量。</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%B5%84-Tuple"><span class="toc-number">1.</span> <span class="toc-text">元組(Tuple)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%88%89-enum"><span class="toc-number">2.</span> <span class="toc-text">列舉(enum)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%88%89%E7%9A%84%E5%80%BC"><span class="toc-number">2.1.</span> <span class="toc-text">列舉的值</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/03/ts-only/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/03/ts-only/&text=TypeScript獨有型別"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/03/ts-only/&is_video=false&description=TypeScript獨有型別"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript獨有型別&body=Check out this article: http://example.com/2023/05/03/ts-only/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/03/ts-only/&title=TypeScript獨有型別"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/03/ts-only/&name=TypeScript獨有型別&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/03/ts-only/&t=TypeScript獨有型別"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    Andy Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

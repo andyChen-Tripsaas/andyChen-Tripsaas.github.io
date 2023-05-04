@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="原始型別 連結 number string boolean undefined:  未定義的空值 null: 代表空值 void: 通常用在函式型別沒有回傳的狀態 symbol: 想成是一個獨一無二的東西1Symbol(&quot;Andy&quot;) &#x3D;&#x3D;&#x3D; Symbol(&quot;Andy&quot;) &#x2F;&#x2F; false  上述的七個原始型別各自獨立，也就是誰也不屬於誰。 P.S: Sym">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript型別">
+<meta property="og:url" content="http://example.com/2023/05/03/ts-overview/index.html">
+<meta property="og:site_name" content="Andy Blog">
+<meta property="og:description" content="原始型別 連結 number string boolean undefined:  未定義的空值 null: 代表空值 void: 通常用在函式型別沒有回傳的狀態 symbol: 想成是一個獨一無二的東西1Symbol(&quot;Andy&quot;) &#x3D;&#x3D;&#x3D; Symbol(&quot;Andy&quot;) &#x2F;&#x2F; false  上述的七個原始型別各自獨立，也就是誰也不屬於誰。 P.S: Sym">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-05-03T15:00:04.000Z">
+<meta property="article:modified_time" content="2023-05-04T12:41:29.853Z">
+<meta property="article:author" content="Andy Chen">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>TypeScript型別</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/03/ts-origin/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/02/ts-inference/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/03/ts-overview/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/03/ts-overview/&text=TypeScript型別"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/03/ts-overview/&is_video=false&description=TypeScript型別"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript型別&body=Check out this article: http://example.com/2023/05/03/ts-overview/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/03/ts-overview/&name=TypeScript型別&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/03/ts-overview/&t=TypeScript型別"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">1.</span> <span class="toc-text">原始型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">物件型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">3.</span> <span class="toc-text">明文型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript%E7%8D%A8%E6%9C%89%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">4.</span> <span class="toc-text">TypeScript獨有型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%9E%8B%E5%88%A5"><span class="toc-number">5.</span> <span class="toc-text">特殊型別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other"><span class="toc-number">6.</span> <span class="toc-text">Other</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        TypeScript型別
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Andy Chen</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-03T15:00:04.000Z" class="dt-published" itemprop="datePublished">2023-05-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/TypeScript/" rel="tag">TypeScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="原始型別-連結"><a href="#原始型別-連結" class="headerlink" title="原始型別 連結"></a>原始型別 <a href="../origints">連結</a></h2><ul>
+<li>number</li>
+<li>string</li>
+<li>boolean</li>
+<li>undefined:  未定義的空值</li>
+<li>null: 代表空值</li>
+<li>void: 通常用在函式型別沒有回傳的狀態</li>
+<li>symbol: 想成是一個獨一無二的東西<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Symbol</span>(<span class="string">&quot;Andy&quot;</span>) === <span class="title class_">Symbol</span>(<span class="string">&quot;Andy&quot;</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>上述的七個原始型別<b>各自獨立</b>，也就是<b>誰也不屬於誰</b>。</p>
+<p>P.S: <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol</a></p>
+<h2 id="物件型別-連結"><a href="#物件型別-連結" class="headerlink" title="物件型別 連結"></a>物件型別 <a href="../objectts">連結</a></h2><ul>
+<li>JSON物件:</li>
+<li>Function</li>
+<li>Array</li>
+<li>Instance (由 Class New出來的)</li>
+</ul>
+<h2 id="明文型別-連結"><a href="#明文型別-連結" class="headerlink" title="明文型別 連結"></a>明文型別 <a href="../objectts">連結</a></h2><h2 id="TypeScript獨有型別-連結"><a href="#TypeScript獨有型別-連結" class="headerlink" title="TypeScript獨有型別 連結"></a>TypeScript獨有型別 <a href="../onlyts">連結</a></h2><ul>
+<li>Enum</li>
+<li>Tuple</li>
+</ul>
+<h2 id="特殊型別"><a href="#特殊型別" class="headerlink" title="特殊型別"></a>特殊型別</h2><ul>
+<li>any</li>
+<li>never</li>
+<li>unknown</li>
+</ul>
+<h2 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h2><ul>
+<li>泛型</li>
+<li>索引型別</li>
+<li>複合型別</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">1.</span> <span class="toc-text">原始型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">2.</span> <span class="toc-text">物件型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">3.</span> <span class="toc-text">明文型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript%E7%8D%A8%E6%9C%89%E5%9E%8B%E5%88%A5-%E9%80%A3%E7%B5%90"><span class="toc-number">4.</span> <span class="toc-text">TypeScript獨有型別 連結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%9E%8B%E5%88%A5"><span class="toc-number">5.</span> <span class="toc-text">特殊型別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other"><span class="toc-number">6.</span> <span class="toc-text">Other</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/03/ts-overview/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/03/ts-overview/&text=TypeScript型別"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/03/ts-overview/&is_video=false&description=TypeScript型別"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript型別&body=Check out this article: http://example.com/2023/05/03/ts-overview/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/03/ts-overview/&title=TypeScript型別"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/03/ts-overview/&name=TypeScript型別&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/03/ts-overview/&t=TypeScript型別"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    Andy Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

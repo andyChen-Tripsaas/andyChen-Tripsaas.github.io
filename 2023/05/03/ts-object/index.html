@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="JSON物件(就是物件)直接看code 1234567891011const info &#x3D; &amp;#123;	name: &quot;andy&quot;,	isMale: true&amp;#125;&#x2F;&#x2F; 上面的code&#x2F;&#x2F; 透過vscode可以幫我們推論出型別如下&#x2F;&#x2F; const info: &amp;#123;  &#x2F;&#x2F;	name: string;  &#x2F;&#x2F;	isMale: boolean;  &#x2F;&#x2F; &amp;#125;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="物件型別">
+<meta property="og:url" content="http://example.com/2023/05/03/ts-object/index.html">
+<meta property="og:site_name" content="Andy Blog">
+<meta property="og:description" content="JSON物件(就是物件)直接看code 1234567891011const info &#x3D; &amp;#123;	name: &quot;andy&quot;,	isMale: true&amp;#125;&#x2F;&#x2F; 上面的code&#x2F;&#x2F; 透過vscode可以幫我們推論出型別如下&#x2F;&#x2F; const info: &amp;#123;  &#x2F;&#x2F;	name: string;  &#x2F;&#x2F;	isMale: boolean;  &#x2F;&#x2F; &amp;#125;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-05-03T15:03:03.000Z">
+<meta property="article:modified_time" content="2023-05-04T12:41:18.214Z">
+<meta property="article:author" content="Andy Chen">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>物件型別</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/03/ts-only/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/03/ts-origin/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/03/ts-object/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/03/ts-object/&text=物件型別"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/03/ts-object/&is_video=false&description=物件型別"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=物件型別&body=Check out this article: http://example.com/2023/05/03/ts-object/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/03/ts-object/&name=物件型別&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/03/ts-object/&t=物件型別"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON%E7%89%A9%E4%BB%B6-%E5%B0%B1%E6%98%AF%E7%89%A9%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">JSON物件(就是物件)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON%E7%89%A9%E4%BB%B6%E7%9A%84%E6%96%B0%E5%A2%9E%E4%BF%AE%E6%94%B9%E5%88%AA%E9%99%A4"><span class="toc-number">1.1.</span> <span class="toc-text">JSON物件的新增修改刪除</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E"><span class="toc-number">1.1.1.</span> <span class="toc-text">新增</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%AA%E9%99%A4"><span class="toc-number">1.1.2.</span> <span class="toc-text">刪除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9"><span class="toc-number">1.1.3.</span> <span class="toc-text">修改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%B8%E7%94%A8%E5%B1%AC%E6%80%A7-optional-property"><span class="toc-number">1.2.</span> <span class="toc-text">選用屬性(optional property)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%94%AF%E8%AE%80%E5%B1%AC%E6%80%A7-Read-Only-property"><span class="toc-number">1.3.</span> <span class="toc-text">唯讀屬性(Read-Only property)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Function"><span class="toc-number">2.</span> <span class="toc-text">Function</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%87%BA-output"><span class="toc-number">2.1.</span> <span class="toc-text">輸出(output)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-input"><span class="toc-number">2.2.</span> <span class="toc-text">輸入(input)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%B8%E7%94%A8%E5%8F%83%E6%95%B8"><span class="toc-number">2.3.</span> <span class="toc-text">選用參數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A0%90%E8%A8%AD%E5%8F%83%E6%95%B8"><span class="toc-number">2.4.</span> <span class="toc-text">預設參數</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array"><span class="toc-number">3.</span> <span class="toc-text">Array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5"><span class="toc-number">4.</span> <span class="toc-text">明文型別</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        物件型別
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Andy Chen</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-03T15:03:03.000Z" class="dt-published" itemprop="datePublished">2023-05-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/TypeScript/" rel="tag">TypeScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="JSON物件-就是物件"><a href="#JSON物件-就是物件" class="headerlink" title="JSON物件(就是物件)"></a>JSON物件(就是物件)</h2><p>直接看code</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> info = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&quot;andy&quot;</span>,</span><br><span class="line">	<span class="attr">isMale</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面的code</span></span><br><span class="line"><span class="comment">// 透過vscode可以幫我們推論出型別如下</span></span><br><span class="line"><span class="comment">// const info: &#123;  </span></span><br><span class="line"><span class="comment">//	name: string;  </span></span><br><span class="line"><span class="comment">//	isMale: boolean;  </span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>從上面的code我們可以知道，就算是JSON物件，vscode等IDE還是可以幫我們直接推論出JSON的型別。</p>
+<p>但一般來說遇到JSON狀況，會建議把JSON的型別去定義出來。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">info</span>: &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="attr">isMale</span>: <span class="built_in">boolean</span>;</span><br><span class="line">&#125; = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&quot;andy&quot;</span>,</span><br><span class="line">	<span class="attr">isMale</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// OR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="attr">isMale</span>: <span class="built_in">boolean</span>;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">info</span>: <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&quot;andy&quot;</span>,</span><br><span class="line">	<span class="attr">isMale</span>: <span class="literal">true</span></span><br><span class="line">&#125; <span class="comment">// info的型別此時會是PersonInfo</span></span><br></pre></td></tr></table></figure>
+
+<p>可以獨立把型別定義出來or做一次性的宣告。</p>
+<p>P.S. 在TS定義這種物件的型別時，每個變數的結尾你要用<code>;</code>還是<code>,</code>都可以。但我自己是習慣<code>;</code>。</p>
+<h3 id="JSON物件的新增修改刪除"><a href="#JSON物件的新增修改刪除" class="headerlink" title="JSON物件的新增修改刪除"></a>JSON物件的新增修改刪除</h3><h4 id="新增"><a href="#新增" class="headerlink" title="新增"></a>新增</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新增</span></span><br><span class="line"><span class="keyword">let</span> info = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">info.<span class="property">luckyNumber</span> = <span class="number">20</span>; <span class="comment">// Property &#x27;luckyNumber&#x27; does not exist on type &#x27;&#123; name: string; age: number; &#125;&#x27;.(2339</span></span><br></pre></td></tr></table></figure>
+
+<p>直接新增一屬性，必然報錯。可透過optional property來解決此問題。</p>
+<h4 id="刪除"><a href="#刪除" class="headerlink" title="刪除"></a>刪除</h4><p>在TS4.0以前，下面的code是不會報錯的，而且再重新對age屬性讀取，會發現還是number型別。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> info = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> info.<span class="property">age</span>;</span><br><span class="line"></span><br><span class="line">info.<span class="property">age</span>; <span class="comment">// (property) age: number</span></span><br></pre></td></tr></table></figure>
+
+<p>在TS4.0以後，會出現錯誤訊息</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> info = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> info.<span class="property">age</span>; <span class="comment">// The operand of a &#x27;delete&#x27; operator must be optional.(2790)</span></span><br></pre></td></tr></table></figure>
+
+<p>要解決上述問題，可先指定info的age為聯集型別 or 透過optional property來解決此問題。</p>
+<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><p>直接上code</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> info = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">info.<span class="property">age</span> = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">info = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;linus&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">15</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在修改上，基本上要複寫整個object或是object裡面的某個屬性都可以，唯一要求就是型別必須相同。唯複寫整個object要注意object的結構不可被改變。</p>
+<h3 id="選用屬性-optional-property"><a href="#選用屬性-optional-property" class="headerlink" title="選用屬性(optional property)"></a>選用屬性(optional property)</h3><p>簡單來說就是告數TS，這個物件的某個屬性不是必要的。透過在<code>:</code>前加上<code>?</code>來註記。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">info1</span>: <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">	<span class="attr">age</span>: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">info2</span>: <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;linus&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>P.S. 選用屬性與聯集型別有什麼差別</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="attr">age</span>: <span class="built_in">number</span> | <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo2</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面兩種的寫法，最主要的差異在於object的<code>age</code>屬性是否一定要有。<br>如果將變數的型別設定為PersonInfo，那麼age屬性<code>一定</code>要給number或是undefined型別。無法像PersonInfo2型別，裡面的age屬性可以不給。</p>
+<p>簡單來說<code>省略</code>欄位與<code>值為undefined</code>為兩件不同的事情。</p>
+<p>P.S. 選用屬性推論出的型別<br>直接在透過上面PersonInfo的例子，PersonInfo的型別會被推論為以下的格式。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;  </span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;  </span><br><span class="line">	age?: <span class="built_in">number</span> | <span class="literal">undefined</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="唯讀屬性-Read-Only-property"><a href="#唯讀屬性-Read-Only-property" class="headerlink" title="唯讀屬性(Read-Only property)"></a>唯讀屬性(Read-Only property)</h3><p>簡單來說，就是要避免直接複寫屬性的值。我們繼續拿上面的PersonInfo當範例：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">readonly</span> age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">info</span>: <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">info.<span class="property">age</span> = <span class="number">30</span>; <span class="comment">// error: Cannot assign to &#x27;age&#x27; because it is a read-only property.(2540)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 當然delete也會錯</span></span><br><span class="line"><span class="keyword">delete</span> info.<span class="property">age</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但假設，我把整個info的reference都換掉，也是複寫值，但這時候就不會有錯了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;linus&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">30</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假使真的要避免可以整個被複寫，可以透過以下兩種寫法，不過建議使用第二種。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Method1</span></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="keyword">readonly</span> <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="keyword">readonly</span> <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Method2</span></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">info</span>: <span class="title class_">Readonly</span>&lt;<span class="title class_">PersonInfo</span>&gt; = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">	<span class="attr">age</span>: <span class="number">20</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不使用第一種方法主要是</p>
+<ol>
+<li>很麻煩，你JSON物件越複雜，每個屬性都要標記readonly</li>
+<li>每個屬性都變成readonly後，會導致該型別綁很死，很難繼續使用。</li>
+<li>若該定義是從第三方套件來的，很難確保該套件是否有這麼做，況且如果強行修改該套件的型別，更容易導致該套件失靈。</li>
+</ol>
+<p>P.S. 可以把屬性設為選用屬性又是唯讀屬性嗎?<br>答案是可以，但受readonly的影響會較大，無法做像延遲型指派的方法。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">readonly</span> age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">info</span>: <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line">info.<span class="property">age</span> = <span class="number">30</span>; <span class="comment">// Cannot assign to &#x27;age&#x27; because it is a read-only property.(2540)</span></span><br><span class="line"><span class="keyword">delete</span> info.<span class="property">age</span>; <span class="comment">// The operand of a &#x27;delete&#x27; operator cannot be a read-only property.(2704)</span></span><br><span class="line"></span><br><span class="line">info = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;linus&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">30</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">info2</span>: <span class="title class_">PersonInfo</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">info2.<span class="property">age</span> = <span class="number">30</span>; <span class="comment">// The operand of a &#x27;delete&#x27; operator cannot be a read-only property.(2704)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><p>函式的型別我會分兩邊來看</p>
+<h3 id="輸出-output"><a href="#輸出-output" class="headerlink" title="輸出(output)"></a>輸出(output)</h3><p>基本上就是根據是否有沒有return與return的值來決定。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">myName</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;andy&#x27;</span></span><br><span class="line">&#125; <span class="comment">// TS推論為 const myName: () =&gt; string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遇到程式回傳會有分岔點的，結果可能會是聯集</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getNumOrString</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line">    <span class="keyword">if</span>(a &gt; <span class="number">0.6</span>) <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> a.<span class="title function_">toString</span>();</span><br><span class="line">&#125; <span class="comment">// const getNumOrString: () =&gt; string | number</span></span><br></pre></td></tr></table></figure>
+
+<p>比較需要注意的是若回傳的內容是固定的，也就是說是明文，TS推論回傳會是明文型別<br>。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意，若回傳的值是固定的，TS會直接推論回傳明文型別</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getNumOrString</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">	<span class="keyword">const</span> a = <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line">	<span class="keyword">if</span>(a &gt; <span class="number">0.6</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="string">&quot;1&quot;</span>;</span><br><span class="line">&#125; <span class="comment">// const getNumOrString: () =&gt; 1 | &quot;1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>若函式沒有任何<code>return</code>的字詞 or return後面<code>為空</code>，TS都會推論函式的回傳型別是void;</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">test1</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;a&quot;</span>)</span><br><span class="line">&#125; <span class="comment">// const test1: () =&gt; void</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">test2</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125; <span class="comment">// const test2: () =&gt; void</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="輸入-input"><a href="#輸入-input" class="headerlink" title="輸入(input)"></a>輸入(input)</h3><p>輸入基本上都是無法被推論的，會被TS認定為是any型別。所以在輸入的參數基本上都需要註記型別。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">add1</span>: <span class="function">(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>) =&gt;</span> <span class="built_in">number</span> = <span class="keyword">function</span>(<span class="params">a, b</span>) =&gt; &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> add2 = <span class="keyword">function</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="built_in">number</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add3</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="built_in">number</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> add4 = (<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>): <span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> add5 = <span class="keyword">function</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125; <span class="keyword">as</span> (<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>) =&gt; <span class="built_in">number</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上面的code是function的各種寫法，基本上我自己是習慣2和3和4的寫法，至於第五種則很少用。</p>
+<p>所以function的註記基本上我會這樣說:</p>
+<ol>
+<li>輸入的參數一定要註記值</li>
+<li>function的output在開發中我會註記型別，方便在開發中確保output與自己所想的一樣。但在該function開發完後，會盡量透過function命名的方式來知道function的output型別，並去除output的型別。</li>
+</ol>
+<h3 id="選用參數"><a href="#選用參數" class="headerlink" title="選用參數"></a>選用參數</h3><p>有時候我們的function的輸入參數並不會每一個都需要帶，這時候我們可以一樣透過<code>?</code>來標註該參數。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">add</span> = (<span class="params">a: <span class="built_in">number</span>, b?: <span class="built_in">number</span></span>) =&gt; &#123;</span><br><span class="line">	<span class="keyword">return</span> a + (b ? b : <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基本上使用選用參數時要注意若有多個參數是選用，不是必需的。須把這寫參數統一排在函式的最後面引入，且中間不可穿插必須的參數。(就跟你平常寫function一樣XDD)</p>
+<h3 id="預設參數"><a href="#預設參數" class="headerlink" title="預設參數"></a>預設參數</h3><p>直接上code</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">add</span> = (<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span> = <span class="number">1</span></span>) =&gt; &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這也不是TS才有的東西，有在寫JS的應該都有寫過。與上面的選用參數比較不一樣的地方是</p>
+<ul>
+<li>選用參數的b會被推論為 number | undefined</li>
+<li>預設參數的b會被推論為 number</li>
+</ul>
+<p>再來同樣建議若有預設參數，一樣建議把它排在最後面，以防若第一個參數就是預設參數需要使用時，須帶入undefined。</p>
+<p>P.S. 在function的輸入參數，選用參數與預設參數是<code>不可以</code>同時使用的。(Parameter cannot have question mark and initializer.(1015))。詳細可以從上述講的選用參數與預設參數，參數被推論出來的型別去做思考。</p>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>在Array裡，我覺得最重要的就是了解如何註記型別。且JS&#x2F;TS的Array不像有些程式語言會限定為單一型別，所以基本上就是了解Array如何做型別註記。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">feb</span>: <span class="built_in">number</span>[] = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">arr</span>: (<span class="built_in">number</span> | <span class="built_in">string</span>)[] = [<span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;4&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">emptyArr</span>: <span class="built_in">number</span>[] = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Maker</span> = &#123;</span><br><span class="line">    <span class="attr">makerName</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">arr2</span>: (<span class="title class_">User</span> | <span class="title class_">Maker</span>)[] = [&#123;<span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span>&#125;, &#123;<span class="attr">makerName</span>: <span class="string">&#x27;andy&#x27;</span>&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>空陣列若沒有主動註記型別，會被推論為any型別，因此建議一定要註記型別。</p>
+<h2 id="明文型別"><a href="#明文型別" class="headerlink" title="明文型別"></a>明文型別</h2><p>明文型別簡單來說就是每個值都是一個型別。</p>
+<p>比較需要注意的地方我覺得是兩個:</p>
+<ol>
+<li><p>需要注意的是使用<code>const</code>和<code>let</code>的差異。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">123</span>; <span class="comment">// const a: 123</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">123</span>; <span class="comment">// let b: number</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>object出來的一定是結構，不會是明文</p>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON%E7%89%A9%E4%BB%B6-%E5%B0%B1%E6%98%AF%E7%89%A9%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">JSON物件(就是物件)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON%E7%89%A9%E4%BB%B6%E7%9A%84%E6%96%B0%E5%A2%9E%E4%BF%AE%E6%94%B9%E5%88%AA%E9%99%A4"><span class="toc-number">1.1.</span> <span class="toc-text">JSON物件的新增修改刪除</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E"><span class="toc-number">1.1.1.</span> <span class="toc-text">新增</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%AA%E9%99%A4"><span class="toc-number">1.1.2.</span> <span class="toc-text">刪除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9"><span class="toc-number">1.1.3.</span> <span class="toc-text">修改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%B8%E7%94%A8%E5%B1%AC%E6%80%A7-optional-property"><span class="toc-number">1.2.</span> <span class="toc-text">選用屬性(optional property)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%94%AF%E8%AE%80%E5%B1%AC%E6%80%A7-Read-Only-property"><span class="toc-number">1.3.</span> <span class="toc-text">唯讀屬性(Read-Only property)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Function"><span class="toc-number">2.</span> <span class="toc-text">Function</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%87%BA-output"><span class="toc-number">2.1.</span> <span class="toc-text">輸出(output)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-input"><span class="toc-number">2.2.</span> <span class="toc-text">輸入(input)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%B8%E7%94%A8%E5%8F%83%E6%95%B8"><span class="toc-number">2.3.</span> <span class="toc-text">選用參數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A0%90%E8%A8%AD%E5%8F%83%E6%95%B8"><span class="toc-number">2.4.</span> <span class="toc-text">預設參數</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array"><span class="toc-number">3.</span> <span class="toc-text">Array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%8E%E6%96%87%E5%9E%8B%E5%88%A5"><span class="toc-number">4.</span> <span class="toc-text">明文型別</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/03/ts-object/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/03/ts-object/&text=物件型別"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/03/ts-object/&is_video=false&description=物件型別"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=物件型別&body=Check out this article: http://example.com/2023/05/03/ts-object/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/03/ts-object/&title=物件型別"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/03/ts-object/&name=物件型別&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/03/ts-object/&t=物件型別"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    Andy Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="型別推論 - Type Inference沒有明確指定型別時，編譯器會依據型別推斷來推測型別。 PS: 大部分時間來說我們可以使用型別推斷，除以下狀況建議使用註記 or 斷言。  先宣告參數沒賦予值（延遲指派） function的參數 &amp; function的回傳值  型別註記 - Type Annotation手動指定型別。告訴編譯器哪個變數就是哪個型別。  冒號（：）註記：123cons">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript型別指定">
+<meta property="og:url" content="http://example.com/2023/05/02/ts-inference/index.html">
+<meta property="og:site_name" content="Andy Blog">
+<meta property="og:description" content="型別推論 - Type Inference沒有明確指定型別時，編譯器會依據型別推斷來推測型別。 PS: 大部分時間來說我們可以使用型別推斷，除以下狀況建議使用註記 or 斷言。  先宣告參數沒賦予值（延遲指派） function的參數 &amp; function的回傳值  型別註記 - Type Annotation手動指定型別。告訴編譯器哪個變數就是哪個型別。  冒號（：）註記：123cons">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-05-02T12:30:26.000Z">
+<meta property="article:modified_time" content="2023-05-04T12:41:08.263Z">
+<meta property="article:author" content="Andy Chen">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>TypeScript型別指定</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/05/03/ts-overview/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/02/ts-inference/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/02/ts-inference/&text=TypeScript型別指定"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/02/ts-inference/&is_video=false&description=TypeScript型別指定"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript型別指定&body=Check out this article: http://example.com/2023/05/02/ts-inference/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/02/ts-inference/&name=TypeScript型別指定&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/02/ts-inference/&t=TypeScript型別指定"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E6%8E%A8%E8%AB%96-Type-Inference"><span class="toc-number">1.</span> <span class="toc-text">型別推論 - Type Inference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E8%A8%BB%E8%A8%98-Type-Annotation"><span class="toc-number">2.</span> <span class="toc-text">型別註記 - Type Annotation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E6%96%B7%E8%A8%80-Type-Assertions"><span class="toc-number">3.</span> <span class="toc-text">型別斷言 - Type Assertions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E8%A8%BB%E8%A8%98-vs-%E5%9E%8B%E5%88%A5%E6%96%B7%E8%A8%80"><span class="toc-number">4.</span> <span class="toc-text">型別註記 vs 型別斷言</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        TypeScript型別指定
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Andy Chen</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-02T12:30:26.000Z" class="dt-published" itemprop="datePublished">2023-05-02</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/TypeScript/" rel="tag">TypeScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="型別推論-Type-Inference"><a href="#型別推論-Type-Inference" class="headerlink" title="型別推論 - Type Inference"></a>型別推論 - Type Inference</h2><p>沒有明確指定型別時，編譯器會依據型別推斷來推測型別。</p>
+<p>PS: 大部分時間來說我們可以使用型別推斷，除以下狀況建議使用註記 or 斷言。</p>
+<ul>
+<li>先宣告參數沒賦予值（延遲指派）</li>
+<li>function的參數 &amp; function的回傳值</li>
+</ul>
+<h2 id="型別註記-Type-Annotation"><a href="#型別註記-Type-Annotation" class="headerlink" title="型別註記 - Type Annotation"></a>型別註記 - Type Annotation</h2><p>手動指定型別。告訴編譯器哪個變數就是哪個型別。</p>
+<ol>
+<li>冒號（：）註記：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">fruit</span>: <span class="built_in">string</span> = <span class="string">&quot;鳳梨&quot;</span></span><br><span class="line"><span class="comment">// Equal</span></span><br><span class="line"><span class="keyword">const</span> fruit = <span class="string">&quot;鳳梨&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>箭頭（ &#x3D;&gt; ）註記：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function Declaration</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="built_in">number</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function Expression</span></span><br><span class="line"><span class="keyword">let</span> add = <span class="keyword">function</span>(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>): <span class="built_in">number</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;		</span><br><span class="line"><span class="comment">// Equal</span></span><br><span class="line"><span class="keyword">let</span> add = (<span class="attr">a</span>: <span class="built_in">number</span>, <span class="attr">b</span>: <span class="built_in">number</span>): <span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Equal</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">add</span>: <span class="function">(<span class="params">a: <span class="built_in">number</span>, b: <span class="built_in">number</span></span>) =&gt;</span> <span class="built_in">number</span> = <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="型別斷言-Type-Assertions"><a href="#型別斷言-Type-Assertions" class="headerlink" title="型別斷言 - Type Assertions"></a>型別斷言 - Type Assertions</h2><p>覆蓋推斷的型別，並且只能用在<code>表達式</code>上。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125; <span class="comment">// Typescript推斷為&#123;&#125;</span></span><br><span class="line">obj.<span class="property">age</span> = <span class="number">28</span>; <span class="comment">// error</span></span><br><span class="line">obj.<span class="property">name</span> = <span class="string">&#x27;andy&#x27;</span> <span class="comment">// error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// fix</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">People</span> &#123;</span><br><span class="line">	<span class="attr">age</span>: <span class="built_in">number</span></span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> obj = &#123;&#125; <span class="keyword">as</span> <span class="title class_">People</span></span><br><span class="line">obj.<span class="property">age</span> = <span class="number">28</span></span><br><span class="line">obj.<span class="property">name</span> = <span class="string">&#x27;andy&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Equal</span></span><br><span class="line"><span class="keyword">const</span> obj = &lt;<span class="title class_">People</span>&gt; &#123;</span><br><span class="line">	<span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;andy&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// But</span></span><br><span class="line"><span class="comment">// 不另外針對obj裡面的屬性賦值也不會錯</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;&#125; <span class="keyword">as</span> <span class="title class_">People</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 推薦做法</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">obj2</span>: obj = &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 另外一個使用情境</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getLength</span>(<span class="params">param: <span class="built_in">string</span> | <span class="built_in">number</span></span>): <span class="built_in">number</span> &#123;</span><br><span class="line">	<span class="keyword">if</span>((&lt;<span class="built_in">string</span>&gt;param).<span class="property">length</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> (&lt;<span class="built_in">string</span>&gt;param).<span class="property">length</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> param.<span class="title function_">toString</span>().<span class="property">length</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="型別註記-vs-型別斷言"><a href="#型別註記-vs-型別斷言" class="headerlink" title="型別註記 vs 型別斷言"></a>型別註記 vs 型別斷言</h2><ul>
+<li>註記通常用在宣告上面，規範內容</li>
+<li>斷言只能用在表達式上面</li>
+<li>斷言大多用在第三方套件的方法or物件</li>
+<li>斷言會用在JSON.parse回來的資料</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E6%8E%A8%E8%AB%96-Type-Inference"><span class="toc-number">1.</span> <span class="toc-text">型別推論 - Type Inference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E8%A8%BB%E8%A8%98-Type-Annotation"><span class="toc-number">2.</span> <span class="toc-text">型別註記 - Type Annotation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E6%96%B7%E8%A8%80-Type-Assertions"><span class="toc-number">3.</span> <span class="toc-text">型別斷言 - Type Assertions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%88%A5%E8%A8%BB%E8%A8%98-vs-%E5%9E%8B%E5%88%A5%E6%96%B7%E8%A8%80"><span class="toc-number">4.</span> <span class="toc-text">型別註記 vs 型別斷言</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/05/02/ts-inference/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/05/02/ts-inference/&text=TypeScript型別指定"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/05/02/ts-inference/&is_video=false&description=TypeScript型別指定"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript型別指定&body=Check out this article: http://example.com/2023/05/02/ts-inference/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/05/02/ts-inference/&title=TypeScript型別指定"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/05/02/ts-inference/&name=TypeScript型別指定&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/05/02/ts-inference/&t=TypeScript型別指定"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    Andy Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
