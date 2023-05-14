@@ -37,10 +37,12 @@ P.S: [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/
 - never
 - unknown
 
-## Other
-- 泛型
+## Other {% post_link ts-other '連結' %}
 - 索引型別
 - 複合型別
 
+## Class用法
+
+## 泛型
 
 
