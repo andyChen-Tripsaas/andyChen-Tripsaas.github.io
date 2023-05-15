@@ -41,6 +41,8 @@ P.S: [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/
 - 索引型別
 - 複合型別
 
+## Interface vs Type {% post_link ts-interface '連結' %}
+
 ## Class用法
 
 ## 泛型

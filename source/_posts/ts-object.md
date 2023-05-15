@@ -277,7 +277,7 @@ const test2 = () => {
 ### 輸入(input)
 輸入基本上都是無法被推論的，會被TS認定為是any型別。所以在輸入的參數基本上都需要註記型別。
 ```typescript
-const add1: (a: number, b: number) => number = function(a, b) => {
+const add1: (a: number, b: number) => number = (a, b) => {
 	return a + b;
 }
 
