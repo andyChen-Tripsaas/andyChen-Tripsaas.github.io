@@ -30,7 +30,7 @@ const locations: (string | number)[][]
 const arr: (number | string)[] = ['1', 2, '3']
 
 // tuple
-const tup = [number, string][] = [[116, '文山區'], [105, '松山區']]
+const tup: [number, string][] = [[116, '文山區'], [105, '松山區']]
 ```
 
 元組一般來說使用上較少，比較常用到的地方可能會類似讀取csv or excel資料時可以用到，或是在座標的系統上可以用到。
